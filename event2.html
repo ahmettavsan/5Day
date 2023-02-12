@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div onmouseover="mouseOverEvent()"
+     onmouseout="mouseOutEvent()" 
+     onmouseup="mouseUpEvent()"
+      onmousedown="mouseDownEvent()" 
+      onmousemove="mouseMoveEvent()"
+      style="background-color: black;width: 200px;height: 200px;" 
+      id="box1">
+    </div>
+
+    <!-- <input type="number" id="txtNumber" value="0">
+    <button onclick="increase()">Arttır</button> -->
+    <script>
+
+        // var i=0;
+        // const increase=()=>{
+        //     i++;
+        //     document.getElementById("txtNumber").value=i;
+
+        // }
+        const mouseOverEvent=()=>{
+
+            //mouse divin üzerine gelince bir defa çalıştı
+            console.log("mouse over");
+        }
+        const mouseOutEvent=()=>{
+            //mouse divden ayrılınca bir defa çalıştı
+            console.log("mouse out");
+        }
+        const mouseUpEvent=()=>{
+            //click tıklanıp kaldırıldığı anda bu metot çalıştı
+            console.log("mouse out");
+           
+        }
+        const mouseDownEvent=()=>{
+            //click tıklandığında anda çalışır
+            console.log("mouse out");
+            
+        }
+        const mouseMoveEvent=()=>{
+            //divin üzerine pointer hareket ettirildikçe bu event çalışır
+            console.log("mouse move");
+        }
+    </script>
+    
+</body>
+</html>

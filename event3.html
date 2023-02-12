@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    .custom-hide{
+        display: none;
+    }
+    .custom-show{
+        display: block;
+    }
+</style>
+</head>
+<body>
+    <div class="col-md-4 my-3 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ürün Kayıt</h5>
+
+                <div class="alert alert-success custom-hide" id="divSuccess" role="alert">
+                    Ürün Başarı İle Kaydedildi.
+                  </div>
+                  <div class="alert alert-danger custom-hide" id="divFail" role="alert">
+                    Ürün Kaydedilirken Bir Hata Meydana Geldi.
+
+                  </div>
+                    <form>
+                        <div class="mb-3">
+                          <label for="txtName">Ürün İsmi:</label>
+                          <input type="text" class="form-control" id="txtName">
+                         
+                        </div>
+                        <div class="mb-3">
+                          <label for="txtPrice">Ürün Fiyat:</label>
+                          <input type="text" class="form-control" id="txtPrice">
+                        </div>
+                        <div class="mb-3">
+                          <label for="dropColorMenu">Ürün Renk:</label>
+                          <select onchange="dropColorMenuChange()" class="form-control" name="" id="dropColorMenu">
+                              <option value="">Seçiniz</option>
+                              <option value="1">Kırmızı</option>
+                              <option value="2">Yeşil</option>
+                              <option value="3">Mavi</option>
+                          </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="isPublish" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                             Yayınlansın mı?
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <p>Yayınlanma Süresi</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioPublishDay" id="exampleRadios1" value="15" >
+                                <label class="form-check-label" for="exampleRadios1">
+                                  15 Gün
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioPublishDay" id="exampleRadios1" value="30" >
+                                <label class="form-check-label" for="exampleRadios1">
+                                  30 Gün
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioPublishDay" id="exampleRadios1" value="45">
+                                <label class="form-check-label" for="exampleRadios1">
+                                 45 Gün
+                                </label>
+                            </div>
+                        </div>
+                       
+                        <button type="button"  onclick="save()" class="btn btn-primary">Submit</button>
+                        <button type="button" id="btnSave" class="btn btn-primary">Submit</button>
+                      
+                      </form>
+
+                      <div>
+                        <table class="table">
+                            <thead>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Color</th>
+                                <th>IsPublish</th>
+                                <th>Day</th>
+                            </thead>
+
+                            <tbody id="tableBody">
+
+                            </tbody>
+                        </table>
+                      </div>
+               
+            </div>
+        </div>
+      
+    </div>
+  
+
+
+
+<script>
+//radiobuttonlarda name önemli bir özellik
+//hangi değerin seçildiğini gruplamayı radio buttonda name e göre yapıyoruzz
+let productList=[];
+let id=0;
+const update=(id)=>{
+    console.log(id);
+}
+
+const loadTable=()=>{
+    const tableBody=document.querySelector("#tableBody");
+    tableBody.innerHTML="";
+    productList.forEach(prodoct=>{
+        var newRow=document.createElement("tr");
+        newRow.innerHTML=`
+        <td>${prodoct.name}</td>
+        <td>${prodoct.price}</td>
+        <td>${prodoct.color}</td>
+        <td>${prodoct.ispublish}</td>
+        <td>${prodoct.publishday}</td>
+        <td><button class="btn btn-warning" onclick="update(${prodoct.id})">Guncelle</button></td>
+        `;
+        tableBody.appendChild(newRow);
+    })
+    
+}
+const showSuccess=()=>{
+    divSuccess.classList.remove("custom-hide");
+    divSuccess.classList.add("custom-show");
+}
+const showFail=()=>{
+    divFail.classList.remove("custom-hide");
+    divFail.classList.add("custom-show");
+}
+
+const reset=()=>{
+    setTimeout(() => {
+            divSuccess.classList.remove("custom-show");
+            divFail.classList.remove("custom-show");
+            divSuccess.classList.add("custom-hide");
+            divFail.classList.add("custom-hide");
+
+        }, 2000);
+}
+
+
+var btnSave=document.querySelector("#btnSave");
+const btnS=()=>{
+    console.log("click3");
+}
+btnSave.addEventListener("click",btnS);
+// btnSave.addEventListener("click",function(){
+//     console.log("click2");
+// })
+
+const divSuccess=document.querySelector("#divSuccess");
+const divFail=document.querySelector("#divFail");
+
+const save=()=>{
+    const color=document.querySelector("#dropColorMenu").value;
+    const name=document.getElementById("txtName").value;
+    const price=document.getElementById("txtPrice").value;
+    const ispublish=document.querySelector("#isPublish").checked;
+   const publishday=document.querySelector("input[name='radioPublishDay']:checked").value;
+   id++;
+   const newProduct={id:id,name:name,price:price,color:color,ispublish:ispublish,publishday:publishday};
+    try {
+
+    console.log(newProduct);
+    productList.push(newProduct);
+   
+   showSuccess();
+   loadTable();
+    
+    } catch (error) {
+        alert("Bir hata meydana geldi");
+        showFail();
+       
+    }finally
+    {
+            reset();
+        //belli bir müddet sonra çalışıcak metodu ayarlamak için settimeout kullanıyoruz
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var dropDownColorMenu=document.querySelector("#dropColorMenu");
+
+dropDownColorMenu.addEventListener("change",function(){
+    let text=dropDownColorMenu.options[dropDownColorMenu.selectedIndex].text;
+    console.log(text);
+})
+
+function dropColorMenuChange(){
+    console.log(dropDownColorMenu.value);
+    let text=dropDownColorMenu.options[dropDownColorMenu.selectedIndex].text;
+    console.log(`${text} function2`);
+}
+
+</script>
+</body>
+</html>
